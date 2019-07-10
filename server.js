@@ -1,5 +1,5 @@
 const express = require('express');
-
+const userDB = require('./users/userDb');
 const server = express();
 
 server.get('/', (req, res) => {
@@ -17,4 +17,15 @@ function logger(req, res, next) {
   next();
 };
 
+async function validateUserId(req, res, next) { 
+  if (req.params.id) {
+    if (!isNaN(parseInt(req.params.id))){
+      if (await userDB.getById(req.params.id)) {
+        next();
+        return;
+      }
+    }
+    res.status(400).json({ error: "invalid user id" });
+  }
+}
 module.exports = server;
