@@ -29,7 +29,7 @@ async function validateUserId(req, res, next) {
   }
 }
 
-async function validateUser(req, res, next) {
+function validateUser(req, res, next) {
   if (req.body) {
     if (req.body.name) {
       next();
@@ -39,6 +39,19 @@ async function validateUser(req, res, next) {
     }
   } else {
     res.status(400).json({ error: "missing user data" })
+  }
+}
+
+function validatePost(req, res, next) {
+  if (req.body) {
+    if (req.body.text) {
+      next();
+      return;
+    } else {
+      res.status(400).json({ error: "missing required text field" })
+    }
+  } else {
+    res.status(400).json({ error: "missing post data" })
   }
 }
 
