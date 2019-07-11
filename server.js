@@ -28,4 +28,9 @@ async function validateUserId(req, res, next) {
     res.status(400).json({ error: "invalid user id" });
   }
 }
+
+async function validateUser(req, res, next) {
+  
+}
+
 module.exports = server;
